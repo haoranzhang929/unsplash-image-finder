@@ -23,19 +23,26 @@ class Search extends Component {
     images: []
   };
 
+  searchImages = (text, amount) => {
+    text = null ? (text = this.state.searchText) : text;
+    amount = null ? (amount = this.state.amount) : amount;
+    unsplash.search
+      .photos(text, 1, amount)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({ images: data.results });
+      })
+      .catch(err => console.log(err));
+  };
+
   onTextChange = e => {
+    this.searchImages();
     const val = e.target.value;
     this.setState({ [e.target.name]: val }, () => {
       if (val === "") {
         this.setState({ images: [] });
       } else {
-        unsplash.search
-          .photos(this.state.searchText, 1, this.state.amount)
-          .then(res => res.json())
-          .then(data => {
-            this.setState({ images: data.results });
-          })
-          .catch(err => console.log(err));
+        this.searchImages(this.state.searchText, this.state.amount);
       }
     });
   };
@@ -46,13 +53,7 @@ class Search extends Component {
       if (this.state.searchText === "") {
         this.setState({ images: [] });
       } else {
-        unsplash.search
-          .photos(this.state.searchText, 1, amount)
-          .then(res => res.json())
-          .then(data => {
-            this.setState({ images: data.results });
-          })
-          .catch(err => console.log(err));
+        this.searchImages(this.state.searchText, this.state.amount);
       }
     });
   };
@@ -72,6 +73,7 @@ class Search extends Component {
               value={this.state.searchText}
               fullWidth={true}
               onChange={this.onTextChange}
+              autoFocus={true}
             />
           </FormControl>
           <br />
@@ -81,8 +83,8 @@ class Search extends Component {
               <MenuItem value={5}>5</MenuItem>
               <MenuItem value={10}>10</MenuItem>
               <MenuItem value={15}>15</MenuItem>
+              <MenuItem value={20}>20</MenuItem>
               <MenuItem value={30}>30</MenuItem>
-              <MenuItem value={50}>50</MenuItem>
             </Select>
           </FormControl>
         </form>
