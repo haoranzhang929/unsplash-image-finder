@@ -1,3 +1,6 @@
+.search {
+  margin-bottom: 25px;
+}
 .search form {
   display: flex;
   flex-direction: column;
@@ -17,6 +20,12 @@
 .images-container span a {
   color: #fff;
   text-decoration: none;
+}
+footer {
+  width: 100%;
+  position: fixed;
+  text-align: center;
+  bottom: 0;
 }
 @media (max-device-width: 736px) {
   .form-item {

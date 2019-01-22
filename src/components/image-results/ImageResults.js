@@ -43,7 +43,7 @@ class ImageResults extends Component {
                 }
                 actionIcon={
                   <IconButton onClick={() => this.handleOpen(image.urls.full)}>
-                    <i class="material-icons">zoom_in</i>
+                    <i className="material-icons">zoom_in</i>
                   </IconButton>
                 }
               />
